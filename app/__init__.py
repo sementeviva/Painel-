@@ -14,4 +14,15 @@ def create_app():
     from app.routes import bp
     app.register_blueprint(bp)
 
+    # Criação automática do banco e do usuário padrão
+    from app.models import User
+    with app.app_context():
+        db.create_all()
+        if not User.query.filter_by(username='semente').first():
+            user = User(username='semente')
+            user.set_password('semente')
+            db.session.add(user)
+            db.session.commit()
+            print("Usuário 'semente' criado automaticamente.")
+
     return app
