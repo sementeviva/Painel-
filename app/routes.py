@@ -31,3 +31,16 @@ def dashboard():
 def logout():
     session.pop('user_id', None)
     return redirect(url_for('main.login'))
+@bp.route('/estatisticas')
+def estatisticas():
+    if 'user_id' not in session:
+        return redirect(url_for('main.login'))
+
+    total_usuarios = User.query.count()
+    total_mensagens = Message.query.count()
+    ultimo_login = db.session.query(User).order_by(User.last_login.desc()).first()
+
+    return render_template('estatisticas.html',
+                           total_usuarios=total_usuarios,
+                           total_mensagens=total_mensagens,
+                           ultimo_login=ultimo_login.last_login if ultimo_login else None)
