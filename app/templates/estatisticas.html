@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Estatísticas</title>
+</head>
+<body>
+    <h1>Estatísticas do Chatbot</h1>
+    <ul>
+        <li>Total de usuários: {{ total_usuarios }}</li>
+        <li>Total de mensagens: {{ total_mensagens }}</li>
+        <li>Último login: {{ ultimo_login or 'Nenhum login registrado' }}</li>
+    </ul>
+    <a href="{{ url_for('main.dashboard') }}">Voltar ao Painel</a>
+</body>
+</html>
